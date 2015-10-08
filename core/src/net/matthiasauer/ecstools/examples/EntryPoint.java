@@ -1,27 +1,47 @@
 package net.matthiasauer.ecstools.examples;
 
+import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
+
+import net.matthiasauer.ecstools.examples.bitmap.Bitmap;
 
 public class EntryPoint extends ApplicationAdapter {
-	SpriteBatch batch;
-	Texture img;
+	private PooledEngine engine;
+	private OrthographicCamera camera;
+	private InputMultiplexer inputMultiplexer;
+	private Viewport viewport;
+	private long lastTimestep = System.currentTimeMillis();
 	
 	@Override
 	public void create () {
-		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
-	}
+		this.engine = new PooledEngine();
+		this.camera = new OrthographicCamera(800, 600);
+		this.viewport = new ScreenViewport(this.camera);
+		this.inputMultiplexer = new InputMultiplexer();
 
+		Gdx.input.setInputProcessor(this.inputMultiplexer);
+		
+		IDemoSetup setup = new Bitmap(engine, camera);
+		
+		setup.setup();
+	}
+	
 	@Override
-	public void render () {
-		Gdx.gl.glClearColor(1, 0, 0, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		batch.begin();
-		batch.draw(img, 0, 0);
-		batch.end();
+	public void resize(int width, int height) {
+		this.viewport.update(width, height);
+	}
+	
+	@Override
+	public void render() {
+		long current = System.currentTimeMillis();
+		long difference = current - lastTimestep;
+		lastTimestep = current;
+		
+		this.engine.update( difference / 1000f );
 	}
 }
