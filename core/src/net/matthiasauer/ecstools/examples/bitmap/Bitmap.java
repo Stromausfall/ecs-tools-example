@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 
 import net.matthiasauer.ecstools.examples.IDemoSetup;
 import net.matthiasauer.ecstools.graphics.RenderComponent;
-import net.matthiasauer.ecstools.graphics.RenderLayer;
 import net.matthiasauer.ecstools.graphics.RenderPositionUnit;
 import net.matthiasauer.ecstools.graphics.RenderSystem;
 
@@ -49,7 +48,8 @@ public class Bitmap implements IDemoSetup {
 						45,
 						RenderPositionUnit.Pixels,
 						this.atlasRegion,
-						RenderLayer.UI,
+						0,
+						false,
 						null));
 		
 		this.engine.addEntity(buttonEntity);
