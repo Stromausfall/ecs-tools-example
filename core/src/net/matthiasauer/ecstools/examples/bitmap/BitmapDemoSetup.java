@@ -11,14 +11,14 @@ import net.matthiasauer.ecstools.graphics.RenderComponent;
 import net.matthiasauer.ecstools.graphics.RenderPositionUnit;
 import net.matthiasauer.ecstools.graphics.RenderSystem;
 
-public class Bitmap implements IDemoSetup {
+public class BitmapDemoSetup implements IDemoSetup {
 	private static final String TEXTURE_FILE = "badlogic.jpg";
 	private final PooledEngine engine;
 	private final OrthographicCamera camera;
 	private final AtlasRegion atlasRegion;
 	private Entity buttonEntity;
 	
-	public Bitmap(
+	public BitmapDemoSetup(
 			PooledEngine engine,
 			OrthographicCamera camera) {
 		this.engine = engine;

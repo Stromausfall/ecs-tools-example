@@ -1,4 +1,4 @@
-package net.matthiasauer.ecstools.examples.button;
+package net.matthiasauer.ecstools.examples.click;
 
 import java.util.Random;
 
@@ -11,14 +11,14 @@ import com.badlogic.gdx.graphics.Color;
 import net.matthiasauer.ecstools.graphics.RenderComponent;
 import net.matthiasauer.ecstools.input.click.ClickedComponent;
 
-public class ButtonSystem extends IteratingSystem {
+public class ClickSystem extends IteratingSystem {
 	@SuppressWarnings("unchecked")
 	private static final Family family =
-			Family.all(ButtonComponent.class, ClickedComponent.class).get();
+			Family.all(ClickComponent.class, ClickedComponent.class).get();
 	private static final Random random = new Random();
 	private final ComponentMapper<RenderComponent> renderComponentMapper;
 	
-	public ButtonSystem() {
+	public ClickSystem() {
 		super(family);
 		
 		this.renderComponentMapper =

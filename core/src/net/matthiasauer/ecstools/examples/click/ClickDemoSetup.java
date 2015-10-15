@@ -1,4 +1,4 @@
-package net.matthiasauer.ecstools.examples.button;
+package net.matthiasauer.ecstools.examples.click;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.PooledEngine;
@@ -19,14 +19,14 @@ import net.matthiasauer.ecstools.input.base.touch.InputTouchTargetComponent;
 import net.matthiasauer.ecstools.input.click.ClickGeneratorSystem;
 import net.matthiasauer.ecstools.input.click.ClickableComponent;
 
-public class Button implements IDemoSetup {
+public class ClickDemoSetup implements IDemoSetup {
 	private static final String TEXTURE_FILE = "badlogic.jpg";
 	private final PooledEngine engine;
 	private final OrthographicCamera camera;
 	private final AtlasRegion atlasRegion;
 	private Entity buttonEntity;
 	
-	public Button(
+	public ClickDemoSetup(
 			PooledEngine engine,
 			OrthographicCamera camera) {
 		this.engine = engine;
@@ -52,7 +52,8 @@ public class Button implements IDemoSetup {
 		this.engine.addSystem(new InputGestureEventGenerator(inputMultiplexer));
 		this.engine.addSystem(new InputTouchGeneratorSystem(inputMultiplexer, camera));
 		this.engine.addSystem(new ClickGeneratorSystem());
-		this.engine.addSystem(new ButtonSystem());
+		
+		this.engine.addSystem(new ClickSystem());
 	}
 	
 	private void createButton() {
@@ -79,7 +80,7 @@ public class Button implements IDemoSetup {
 		
 		// note that this is now a button !
 		buttonEntity.add(
-				this.engine.createComponent(ButtonComponent.class));
+				this.engine.createComponent(ClickComponent.class));
 		
 		this.engine.addEntity(buttonEntity);
 	}

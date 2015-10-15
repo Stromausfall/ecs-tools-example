@@ -8,8 +8,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-import net.matthiasauer.ecstools.examples.bitmap.Bitmap;
-import net.matthiasauer.ecstools.examples.button.Button;
+import net.matthiasauer.ecstools.examples.bitmap.BitmapDemoSetup;
 
 public class EntryPoint extends ApplicationAdapter {
 	private PooledEngine engine;
@@ -27,10 +26,8 @@ public class EntryPoint extends ApplicationAdapter {
 
 		Gdx.input.setInputProcessor(this.inputMultiplexer);
 		
-		//IDemoSetup setup = new Bitmap(engine, camera);
-		IDemoSetup setup = new Button(engine, camera);
-		
-		setup.setup();
+		this.engine.addSystem(
+				new NextExampleSystem(BitmapDemoSetup.class, this.engine, this.camera));
 	}
 	
 	@Override
