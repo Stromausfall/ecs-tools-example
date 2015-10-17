@@ -1,4 +1,4 @@
-package net.matthiasauer.ecstools.examples.click;
+package net.matthiasauer.ecstools.examples.hover;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.PooledEngine;
@@ -13,20 +13,18 @@ import net.matthiasauer.ecstools.graphics.RenderComponent;
 import net.matthiasauer.ecstools.graphics.RenderPositionUnit;
 import net.matthiasauer.ecstools.graphics.RenderSystem;
 import net.matthiasauer.ecstools.graphics.texture.archive.RenderTextureArchiveSystem;
-import net.matthiasauer.ecstools.input.base.gestures.InputGestureEventGenerator;
 import net.matthiasauer.ecstools.input.base.touch.InputTouchGeneratorSystem;
 import net.matthiasauer.ecstools.input.base.touch.InputTouchTargetComponent;
-import net.matthiasauer.ecstools.input.click.ClickGeneratorSystem;
-import net.matthiasauer.ecstools.input.click.ClickableComponent;
 
-public class ClickDemoSetup implements IDemoSetup {
+public class MouseHoverSetup implements IDemoSetup {
 	private static final String TEXTURE_FILE = "badlogic.jpg";
 	private final PooledEngine engine;
 	private final OrthographicCamera camera;
 	private final AtlasRegion atlasRegion;
-	private Entity buttonEntity;
+	private Entity hoverEntity1;
+	private Entity hoverEntity2;
 	
-	public ClickDemoSetup(
+	public MouseHoverSetup(
 			PooledEngine engine,
 			OrthographicCamera camera) {
 		this.engine = engine;
@@ -49,39 +47,43 @@ public class ClickDemoSetup implements IDemoSetup {
 		// start the render system
 		this.engine.addSystem(new RenderSystem(this.camera));
 		this.engine.addSystem(new RenderTextureArchiveSystem());
-		this.engine.addSystem(new InputGestureEventGenerator(inputMultiplexer));
 		this.engine.addSystem(new InputTouchGeneratorSystem(inputMultiplexer, camera));
-		this.engine.addSystem(new ClickGeneratorSystem());
 		
-		this.engine.addSystem(new ClickSystem());
+		this.engine.addSystem(new MouseHoverSystem());
 	}
 	
 	private void createButton() {
-		this.buttonEntity = this.engine.createEntity();
+		this.hoverEntity1 = this.engine.createEntity();
+		this.hoverEntity2 = this.engine.createEntity();
 		
-		buttonEntity.add(
+		this.hoverEntity1.add(
 				this.engine.createComponent(RenderComponent.class).setSprite(
+						-50,
 						0,
 						0,
-						45,
-						RenderPositionUnit.Pixels,
+						RenderPositionUnit.Percent,
 						null,
-						0,
+						1,
 						false,
 						this.atlasRegion));
-		
-		// register whether the mouse touches the rendered entity
-		buttonEntity.add(
+		this.hoverEntity2.add(
+				this.engine.createComponent(RenderComponent.class).setText(
+						50,
+						0,
+						0,
+						RenderPositionUnit.Percent,
+						null,
+						1,
+						false,
+						"Dummy Text",
+						"IrishGrowler"));
+
+		this.hoverEntity1.add(
+				this.engine.createComponent(InputTouchTargetComponent.class));
+		this.hoverEntity2.add(
 				this.engine.createComponent(InputTouchTargetComponent.class));
 		
-		// makes the entity clickable		
-		buttonEntity.add(
-				this.engine.createComponent(ClickableComponent.class));
-		
-		// note that this is now a button !
-		buttonEntity.add(
-				this.engine.createComponent(ClickComponent.class));
-		
-		this.engine.addEntity(buttonEntity);
+		this.engine.addEntity(this.hoverEntity1);
+		this.engine.addEntity(this.hoverEntity2);
 	}
 }

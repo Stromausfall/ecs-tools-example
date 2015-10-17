@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 
 import net.matthiasauer.ecstools.examples.bitmap.BitmapDemoSetup;
 import net.matthiasauer.ecstools.examples.click.ClickDemoSetup;
+import net.matthiasauer.ecstools.examples.hover.MouseHoverSetup;
 import net.matthiasauer.ecstools.examples.text.TextDemoSetup;
 import net.matthiasauer.ecstools.graphics.RenderComponent;
 import net.matthiasauer.ecstools.graphics.RenderPositionUnit;
@@ -35,22 +36,27 @@ public class NextExampleSystem extends EntitySystem {
 		this.entity = null;
 	}
 	
-	private void initialize() {
+	private void initialize() {/*
 		if (this.currentExample == BitmapDemoSetup.class) {
-			BitmapDemoSetup setup = new BitmapDemoSetup(engine, camera);
+			IDemoSetup setup = new BitmapDemoSetup(engine, camera);
 			setup.setup();
 			this.nextDemoExample = ClickDemoSetup.class;
 		}
 		if (this.currentExample == ClickDemoSetup.class) {
-			ClickDemoSetup setup = new ClickDemoSetup(engine, camera);
+			IDemoSetup setup = new ClickDemoSetup(engine, camera);
 			setup.setup();
 			this.nextDemoExample = TextDemoSetup.class;
 		}
 		if (this.currentExample == TextDemoSetup.class) {
-			TextDemoSetup setup = new TextDemoSetup(engine, camera);
+			IDemoSetup setup = new TextDemoSetup(engine, camera);
+			setup.setup();
+			this.nextDemoExample = MouseHoverSetup.class;
+		}
+		if (this.currentExample == MouseHoverSetup.class) {*/
+			IDemoSetup setup = new MouseHoverSetup(engine, camera);
 			setup.setup();
 			this.nextDemoExample = BitmapDemoSetup.class;
-		}
+		//}
 		
 		this.entity = this.engine.createEntity();
 		this.entity.add(
@@ -77,11 +83,11 @@ public class NextExampleSystem extends EntitySystem {
 						-80,
 						0,
 						RenderPositionUnit.Percent,
+						null,
 						0,
 						true,
 						"time left in " + this.currentExample.getSimpleName() + " : " + component.secondsLeft,
-						"IrishGrowler",
-						null));
+						"IrishGrowler"));
 		
 		
 		if (component.secondsLeft < 0) {

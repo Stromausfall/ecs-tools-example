@@ -39,10 +39,10 @@ public class TextDemoSetup implements IDemoSetup {
 		
 		this.textEntity1.add(
 				engine.createComponent(RenderComponent.class).setText(
-						0, 0, 0, RenderPositionUnit.Pixels, 0, true, "foo foo 1", "IrishGrowler", Color.YELLOW));
+						0, 0, 0, RenderPositionUnit.Pixels, Color.YELLOW, 0, true, "foo foo 1", "IrishGrowler"));
 		this.textEntity2.add(
 				engine.createComponent(RenderComponent.class).setText(
-						0, 0, 180, RenderPositionUnit.Pixels, 0, true, "foo foo 2", null, null));
+						0, 0, 180, RenderPositionUnit.Pixels, null, 0, true, "foo foo 2", null));
 		
 		this.engine.addEntity(this.textEntity1);
 		this.engine.addEntity(this.textEntity2);

@@ -47,10 +47,10 @@ public class BitmapDemoSetup implements IDemoSetup {
 						0,
 						45,
 						RenderPositionUnit.Pixels,
-						this.atlasRegion,
+						null,
 						0,
 						false,
-						null));
+						this.atlasRegion));
 		
 		this.engine.addEntity(buttonEntity);
 	}
