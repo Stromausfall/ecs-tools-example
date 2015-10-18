@@ -63,7 +63,7 @@ public class ClickDemoSetup implements IDemoSetup {
 				this.engine.createComponent(RenderComponent.class).setSprite(
 						0,
 						0,
-						45,
+						27.5f,
 						RenderPositionUnit.Pixels,
 						null,
 						0,

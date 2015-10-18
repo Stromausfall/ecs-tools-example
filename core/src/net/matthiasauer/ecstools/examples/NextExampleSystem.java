@@ -19,7 +19,7 @@ import net.matthiasauer.ecstools.graphics.RenderPositionUnit;
 public class NextExampleSystem extends EntitySystem {
 	private final ComponentMapper<NextExampleComponent> nextExampleComponentMapper =
 			ComponentMapper.getFor(NextExampleComponent.class);
-	private static final int TIME_UNTIL_NEXT_DEMO = 15;
+	private static final int TIME_UNTIL_NEXT_DEMO = 10;
 	private final Class<? extends IDemoSetup> currentExample;
 	private final PooledEngine engine;
 	private final OrthographicCamera camera;
@@ -36,7 +36,7 @@ public class NextExampleSystem extends EntitySystem {
 		this.entity = null;
 	}
 	
-	private void initialize() {/*
+	private void initialize() {
 		if (this.currentExample == BitmapDemoSetup.class) {
 			IDemoSetup setup = new BitmapDemoSetup(engine, camera);
 			setup.setup();
@@ -52,11 +52,11 @@ public class NextExampleSystem extends EntitySystem {
 			setup.setup();
 			this.nextDemoExample = MouseHoverSetup.class;
 		}
-		if (this.currentExample == MouseHoverSetup.class) {*/
+		if (this.currentExample == MouseHoverSetup.class) {
 			IDemoSetup setup = new MouseHoverSetup(engine, camera);
 			setup.setup();
 			this.nextDemoExample = BitmapDemoSetup.class;
-		//}
+		}
 		
 		this.entity = this.engine.createEntity();
 		this.entity.add(
