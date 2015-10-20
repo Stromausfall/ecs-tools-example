@@ -23,6 +23,7 @@ public class MouseHoverSetup implements IDemoSetup {
 	private final AtlasRegion atlasRegion;
 	private Entity hoverEntity1;
 	private Entity hoverEntity2;
+	private Entity hoverEntity3;
 	
 	public MouseHoverSetup(
 			PooledEngine engine,
@@ -55,6 +56,7 @@ public class MouseHoverSetup implements IDemoSetup {
 	private void createButton() {
 		this.hoverEntity1 = this.engine.createEntity();
 		this.hoverEntity2 = this.engine.createEntity();
+		this.hoverEntity3 = this.engine.createEntity();
 		
 		this.hoverEntity1.add(
 				this.engine.createComponent(RenderComponent.class).setSprite(
@@ -68,12 +70,24 @@ public class MouseHoverSetup implements IDemoSetup {
 						this.atlasRegion));
 		this.hoverEntity2.add(
 				this.engine.createComponent(RenderComponent.class).setText(
-						50,
+						0,
 						0,
 						0,
 						RenderPositionUnit.Percent,
 						null,
 						1,
+						false,
+						"Dummy Text2",
+						"IrishGrowler"));
+		this.hoverEntity3.add(
+				this.engine.createComponent(RenderComponent.class).setText(
+						50,
+						0,
+						25,
+						RenderPositionUnit.Percent,
+						null,
+						// give it higher priority for rendering AND touch detection !
+						2,
 						false,
 						"Dummy Text",
 						"IrishGrowler"));
@@ -82,8 +96,11 @@ public class MouseHoverSetup implements IDemoSetup {
 				this.engine.createComponent(InputTouchTargetComponent.class));
 		this.hoverEntity2.add(
 				this.engine.createComponent(InputTouchTargetComponent.class));
+		this.hoverEntity3.add(
+				this.engine.createComponent(InputTouchTargetComponent.class));
 		
 		this.engine.addEntity(this.hoverEntity1);
 		this.engine.addEntity(this.hoverEntity2);
+		this.engine.addEntity(this.hoverEntity3);
 	}
 }
